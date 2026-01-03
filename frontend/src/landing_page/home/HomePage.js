@@ -1,4 +1,4 @@
-// Zerodha landing page HomePage component
+// Zerodha landing page HomePage component 
 import React from "react";
 import Hero from "./Hero";
 import Awards from "./Awards";
