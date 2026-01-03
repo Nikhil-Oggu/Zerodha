@@ -1,5 +1,5 @@
 import React from "react";
-
+// Product component for Zerodha landing page
 function Universe() {
   return (
     <div className="container mt-5">
