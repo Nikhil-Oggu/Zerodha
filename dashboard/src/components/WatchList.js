@@ -129,45 +129,38 @@ const WatchListItem = ({ stock }) => {
   );
 };
 
+// ...existing code...
 const WatchListActions = ({ uid }) => {
   const generalContext = useContext(GeneralContext);
 
   const handleBuyClick = () => {
-    generalContext.openBuyWindow(uid);
+    generalContext?.openBuyWindow?.(uid);
+  };
+
+  const handleSellClick = () => {
+    generalContext?.openSellWindow?.(uid);
   };
 
   return (
     <span className="actions">
       <span>
-        <Tooltip
-          title="Buy (B)"
-          placement="top"
-          arrow
-          TransitionComponent={Grow}
-          onClick={handleBuyClick}
-        >
-          <button className="buy">Buy</button>
+        <Tooltip title="Buy (B)" placement="top" arrow TransitionComponent={Grow}>
+          <button type="button" className="buy" onClick={handleBuyClick}>
+            Buy
+          </button>
         </Tooltip>
-        <Tooltip
-          title="Sell (S)"
-          placement="top"
-          arrow
-          TransitionComponent={Grow}
-        >
-          <button className="sell">Sell</button>
+        <Tooltip title="Sell (S)" placement="top" arrow TransitionComponent={Grow}>
+          <button type="button" className="sell" onClick={handleSellClick}>
+            Sell
+          </button>
         </Tooltip>
-        <Tooltip
-          title="Analytics (A)"
-          placement="top"
-          arrow
-          TransitionComponent={Grow}
-        >
-          <button className="action">
+        <Tooltip title="Analytics (A)" placement="top" arrow TransitionComponent={Grow}>
+          <button type="button" className="action">
             <BarChartOutlined className="icon" />
           </button>
         </Tooltip>
         <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
-          <button className="action">
+          <button type="button" className="action">
             <MoreHoriz className="icon" />
           </button>
         </Tooltip>
@@ -175,3 +168,4 @@ const WatchListActions = ({ uid }) => {
     </span>
   );
 };
+// ...existing code...
