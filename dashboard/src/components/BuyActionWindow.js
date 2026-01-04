@@ -10,7 +10,7 @@ import "./BuyActionWindow.css";
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
-
+// API CALL TO FETCH STOCK DETAILS CAN BE ADDED HERE
   const handleBuyClick = () => {
     axios.post("http://localhost:3002/newOrder", {
       name: uid,
