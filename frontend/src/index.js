@@ -17,6 +17,7 @@ import LandingLayout from "./landing_page/LandingLayout";
 
 /* DASHBOARD */
 import DashboardLayout from "./dashboard/DashboardLayout";
+import Home from "./dashboard/components/Home"; // Import the Home component
 
 import Dashboard from "./dashboard/components/Dashboard"; // Import the Dashboard component
 import ProtectedRoute from "./dashboard/components/ProtectedRoute";
@@ -51,7 +52,8 @@ root.render(
           }
         >
           {/* This renders the Dashboard.js component for any dashboard path */}
-          <Route path="*" element={<Dashboard />} />
+          {/* <Route path="*" element={<Dashboard />} /> */}
+          <Route path="*" element={<Home />} />
           
         </Route>
 
