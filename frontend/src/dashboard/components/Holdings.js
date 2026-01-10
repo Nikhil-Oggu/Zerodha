@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import { VerticalGraph } from "./VerticalGraph";
-import server from "../environment";
+import server from "../../environment";
 
 // import { holdings } from "../data/data";
 

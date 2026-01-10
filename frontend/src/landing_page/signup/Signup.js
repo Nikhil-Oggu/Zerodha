@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./Signup.css";
-import server from "../environment";
+import server from "../../environment";
 
 const Signup = () => {
   const navigate = useNavigate();
