@@ -1,29 +1,28 @@
+// Dashboard.js
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-// import styles from "./dashboard.module.css";
-import styles from "../dashboard.css";
-
-
-import Funds from "./Funds";
-import Holdings from "./Holdings";
-import Orders from "./Orders";
-import Positions from "./Positions";
-import Summary from "./Summary";
 import WatchList from "./WatchList";
+import Summary from "./Summary";
+import Orders from "./Orders";
+import Holdings from "./Holdings";
+import Positions from "./Positions";
+import Funds from "./Funds";
+import Home from "./Home";
 
 const Dashboard = () => {
   return (
-     <div className="dashboard-container">
+    <div className="dashboard-container">
       <WatchList />
 
       <div className="content">
         <Routes>
-          <Route path="home" element={<Summary />} />
+          {/* path="/" here actually means /dashboard/ */}
+          <Route path="home" element={<Summary />} /> 
           <Route path="orders" element={<Orders />} />
           <Route path="holdings" element={<Holdings />} />
           <Route path="positions" element={<Positions />} />
           <Route path="funds" element={<Funds />} />
-       
+          <Route path="*" element={<Home />} />
         </Routes>
       </div>
     </div>
