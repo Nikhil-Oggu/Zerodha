@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-
+import server from "../environment";
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ const ProtectedRoute = ({ children }) => {
         }
 
         // Verify token with backend
-        const response = await axios.get("http://localhost:3002/verify", {
+        const response = await axios.get(`${server}/verify`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

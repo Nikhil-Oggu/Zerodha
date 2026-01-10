@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import server from "../environment";
 
 const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
@@ -10,7 +11,7 @@ const Orders = () => {
   }, []);
 
   const fetchOrders = () => {
-    axios.get("http://localhost:3002/allOrders").then((res) => {
+    axios.get(`${server}/allOrders`).then((res) => {
       setAllOrders(res.data);
     }).catch((err) => {
       console.error("Error fetching orders:", err);

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import GeneralContext from "./GeneralContext";
 import styles from "./BuyActionWindow.module.css";
+import server from "../environment";
 
 const SellActionWindow = ({ uid }) => {
   const { closeSellWindow } = useContext(GeneralContext);
@@ -10,7 +11,7 @@ const SellActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0);
 
   const handleSellClick = async () => {
-    await axios.post("http://localhost:3002/newOrder", {
+    await axios.post(`${server}/newOrder`, {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./Signup.css";
+import server from "../environment";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3002/signup", {
+      const response = await axios.post(`${server}/signup`, {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -109,7 +110,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3002/login", {
+      const response = await axios.post(`${server}/login`, {
         email: loginData.email,
         password: loginData.password,
       });
