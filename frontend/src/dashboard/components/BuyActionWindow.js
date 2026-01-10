@@ -1,15 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-
 import GeneralContext from "./GeneralContext";
-import "./BuyActionWindow.css";
+import styles from "./BuyActionWindow.module.css";
 
 const BuyActionWindow = ({ uid }) => {
-  const generalContext = useContext(GeneralContext); // ✅ FIX
+  const { closeBuyWindow } = useContext(GeneralContext);
 
   const [stockQuantity, setStockQuantity] = useState(1);
-  const [stockPrice, setStockPrice] = useState(0.0);
+  const [stockPrice, setStockPrice] = useState(0);
 
   const handleBuyClick = async () => {
     await axios.post("http://localhost:3002/newOrder", {
@@ -19,23 +17,21 @@ const BuyActionWindow = ({ uid }) => {
       mode: "BUY",
     });
 
-    generalContext.closeBuyWindow(); // ✅ FIX
-  };
-
-  const handleCancelClick = () => {
-    generalContext.closeBuyWindow(); // ✅ FIX
+    closeBuyWindow();
   };
 
   return (
-    <div className="container" id="buy-window" draggable="true">
-      <div className="regular-order">
-        <div className="header">
-          <h3>Buy {uid} <span>NSE</span></h3>
-          <p>Qty</p>
-        </div>
-        <div className="inputs">
+    <div className={styles.actionWindow}>
+      <div className={styles.actionHeader}>
+        <h3>
+          Buy {uid} <span>NSE</span>
+        </h3>
+      </div>
+
+      <div className={styles.regularOrder}>
+        <div className={styles.inputs}>
           <fieldset>
-            <legend>Qty.</legend>
+            <legend>Qty</legend>
             <input
               type="number"
               value={stockQuantity}
@@ -55,13 +51,13 @@ const BuyActionWindow = ({ uid }) => {
         </div>
       </div>
 
-      <div className="buttons">
+      <div className={styles.buttons}>
         <span>Margin required ₹140.65</span>
         <div>
-          <button className="btn btn-blue" onClick={handleBuyClick}>
+          <button className={`${styles.btn} ${styles.btnBlue}`} onClick={handleBuyClick}>
             Buy
           </button>
-          <button className="btn btn-grey" onClick={handleCancelClick}>
+          <button className={`${styles.btn} ${styles.btnGrey}`} onClick={closeBuyWindow}>
             Cancel
           </button>
         </div>

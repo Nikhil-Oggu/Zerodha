@@ -1,38 +1,38 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
-const BuyActionWindow = ({ uid }) => {
-  const generalContext = useContext(GeneralContext); // ✅ FIX
+const SellActionWindow = ({ uid }) => {
+  const generalContext = useContext(GeneralContext);
 
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
 
-  const handleBuyClick = async () => {
+  const handleSellClick = async () => {
     await axios.post("http://localhost:3002/newOrder", {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
-      mode: "BUY",
+      mode: "SELL",
     });
 
-    generalContext.closeBuyWindow(); // ✅ FIX
+    generalContext.closeSellWindow();
   };
 
   const handleCancelClick = () => {
-    generalContext.closeBuyWindow(); // ✅ FIX
+    generalContext.closeSellWindow();
   };
 
   return (
-    <div className="container" id="buy-window" draggable="true">
+    <div className="container" id="sell-window" draggable="true">
       <div className="regular-order">
         <div className="header">
-          <h3>Buy {uid} <span>NSE</span></h3>
+          <h3>Sell {uid} <span>NSE</span></h3>
           <p>Qty</p>
         </div>
+
         <div className="inputs">
           <fieldset>
             <legend>Qty.</legend>
@@ -58,8 +58,8 @@ const BuyActionWindow = ({ uid }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <button className="btn btn-blue" onClick={handleBuyClick}>
-            Buy
+          <button className="btn btn-blue" onClick={handleSellClick}>
+            Sell
           </button>
           <button className="btn btn-grey" onClick={handleCancelClick}>
             Cancel
@@ -70,4 +70,4 @@ const BuyActionWindow = ({ uid }) => {
   );
 };
 
-export default BuyActionWindow;
+export default SellActionWindow;

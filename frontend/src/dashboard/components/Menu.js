@@ -26,7 +26,7 @@ const Menu = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "http://localhost:3001/signup";
+    window.location.href = "/signup";
   };
 
   const getInitials = (name) => {
@@ -44,13 +44,13 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} />
+      <img src="/logo.png" style={{ width: "50px" }} alt="Zerodha Logo" />
       <div className="menus">
         <ul>
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/"
+              to="/dashboard/home"
               onClick={() => handleMenuClick(0)}
             >
               <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>
@@ -61,7 +61,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/orders"
+              to="/dashboard/orders"
               onClick={() => handleMenuClick(1)}
             >
               <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>
@@ -72,7 +72,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/holdings"
+              to="/dashboard/holdings"
               onClick={() => handleMenuClick(2)}
             >
               <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>
@@ -83,7 +83,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/positions"
+              to="/dashboard/positions"
               onClick={() => handleMenuClick(3)}
             >
               <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>
@@ -94,7 +94,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="funds"
+              to="/dashboard/funds"
               onClick={() => handleMenuClick(4)}
             >
               <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>
@@ -103,15 +103,15 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-            <Link
+            {/* <Link
               style={{ textDecoration: "none" }}
-              to="/apps"
+              to="/dashboard/apps"
               onClick={() => handleMenuClick(6)}
             >
               <p className={selectedMenu === 6 ? activeMenuClass : menuClass}>
                 Apps
               </p>
-            </Link>
+            </Link> */}
           </li>
         </ul>
         <hr />

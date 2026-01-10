@@ -4,21 +4,146 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const { HoldingsModel } = require("./model/HoldingsModel");
-
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
+const { UsersModel } = require("./model/UsersModel");
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key_here";
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 
+// Authentication Routes
 
+// Signup endpoint
+app.post("/signup", async (req, res) => {
+  try {
+    const { name, email, phone, password } = req.body;
+
+    // Validate input
+    if (!name || !email || !phone || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Check if user already exists
+    const existingUser = await UsersModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    const newUser = new UsersModel({
+      name,
+      email,
+      phone,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    // Generate JWT token
+    const token = jwt.sign({ id: newUser._id, email: newUser.email }, JWT_SECRET, {
+      expiresIn: "30d",
+    });
+
+    res.status(201).json({
+      message: "Account created successfully",
+      token,
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+      },
+    });
+  } catch (error) {
+    console.error("Signup error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Login endpoint
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    // Find user
+    const user = await UsersModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // Compare password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+      expiresIn: "30d",
+    });
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Verify token endpoint
+app.get("/verify", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await UsersModel.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
+    });
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" });
+  }
+});
 
 app.get("/allHoldings", async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
@@ -41,6 +166,11 @@ app.post("/newOrder", async (req, res) => {
   newOrder.save();
 
   res.send("Order saved!");
+});
+
+app.get("/allOrders", async (req, res) => {
+  let allOrders = await OrdersModel.find({});
+  res.json(allOrders);
 });
 
 app.get("/addHoldings", async (req, res) => {

@@ -77,7 +77,7 @@ const WatchList = () => {
 
   return (
     <div className="watchlist-container">
-      <div className="search-container">
+      {/* <div className="search-container">
         <input
           type="text"
           name="search"
@@ -86,7 +86,7 @@ const WatchList = () => {
           className="search"
         />
         <span className="counts"> {watchlist.length} / 50</span>
-      </div>
+      </div> */}
 
       <ul className="list">
         {watchlist.map((stock, index) => {
@@ -198,4 +198,3 @@ const WatchListActions = ({ uid, stock }) => {
     </>
   );
 };
-// ...existing code...

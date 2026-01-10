@@ -1,94 +1,9 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.nav-link{
-  margin-left: 40px;
-}
-
-#supportHero{
-  background-color: rgb(56, 126, 209);
-  color: white;
-}
-
-#supportHero a{
-  color: white;
-}
-
-#supportWrapper{
-  display: flex;
-  justify-content: space-between;
-  margin: 0 150px;
-}
-
-#supportHero input{
-  padding: 20px 50px;
-  width: 100%;
-  font-size: 20px;
-  border-radius: 10px;
-  border: none;
-}
-
-
-
-/* Used for support hero section */
-
-/* Existing global styles */
-.nav-link {
-  margin-left: 40px;
-}
-
-/* Support Hero Section */
-#supportHero {
-  background-color: rgb(56, 126, 209);
-  color: white;
-  padding-bottom: 50px; /* Adds bottom padding to the blue area */
-}
-
-#supportHero a {
-  color: white;
-  text-decoration: underline; /* Standard for support portals */
-  font-size: 1.1rem;
-}
-
-#supportHero h1 {
-  line-height: 1.5;
-  font-weight: 400;
-}
-
-#supportWrapper {
-  /* Using Bootstrap d-flex classes in JSX is preferred, 
-     but keeping this for custom margin control */
-  margin: 0 100px; 
-}
-
-#supportHero input {
-  padding: 15px 30px;
-  width: 100%;
-  font-size: 18px;
-  border-radius: 4px; /* Slightly sharper corners for a professional look */
-  border: none;
-  outline: none;
-  color: #444;
-}
-
-.support-links a {
-  text-decoration: underline;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-#supportHero ol li {
-  font-size: 1.2rem;
-  line-height: 1.8;
+body {
+  font-family: system-ui, sans-serif;
 }
