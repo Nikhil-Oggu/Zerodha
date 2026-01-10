@@ -1,4 +1,4 @@
-# Zerodha Clone 💹
+# Zerodha Clone
 
 A full-stack Zerodha-like trading platform built using **React**, **Node.js**, **Express**, and **MongoDB**.  
 This project includes authentication, protected dashboard routes, order placement, holdings, positions, and a watchlist.
